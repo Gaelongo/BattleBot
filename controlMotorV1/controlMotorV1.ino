@@ -1,4 +1,4 @@
-onst int M1L = 5;//Motor izquierdo hacia adelante
+const int M1L = 5;//Motor izquierdo hacia adelante
 const int M1R = 18;//Motor izquierdo hacia atras
 const int M2L = 22;//Motor derecho hacia adelante
 const int M2R = 23;//Motor derecho Hacia atras
@@ -48,7 +48,7 @@ void loop() {
   if(leftJoyIn<-10 && rightJoyIn==0){
     //Mover hacia enfrente (ambos motores giran hacia adelante)
 
-    int motorPowerDR = map(leftJoyIn, 0, -128, 0, 255);
+    int motorPowerDR = map((leftJoyIn*(-1)), 0, 128, 0, 255);
 
     //Todos en 0 excepto los que van a funcionar
     ledcWrite(canalM1R, 0);
@@ -77,17 +77,17 @@ void loop() {
     int motorPowerLR = map(rightJoyIn, 0, 128, 0, 255);
 
     //En 0 los que no van a funcionar
-    ledcWrite(canalM1R, 0); //motor 1 hacia atras apagado
-    ledcWrite(canalM2L, 0); //motor 2 hacia enfrente apagado
+    ledcWrite(canalM1R, 0);//motor 1 hacia atras apagado
+    ledcWrite(canalM2L, 0);//motor 2 hacia enfrente apagado
 
     //Estos son los que van a funcionar
-    ledcWrite(canalM1L, motorPowerLR);  //motor 1 hacia enfrente potencia del joystick
-    ledcWrite(canalM2R, motorPowerLR);  //motor 2 hacia atras potencia del joystick
+    ledcWrite(canalM1L, motorPowerLR);//motor 1 hacia enfrente potencia del joystick
+    ledcWrite(canalM2R, motorPowerLR);//motor 2 hacia atras potencia del joystick
 
   }else if(leftJoyIn==0 && rightJoyIn<-10){
     //Girar hacia la izquierda (motor 1 hacia atras y motor 2 hacia enfrente)
 
-    int motorPowerLR = map(rightJoyIn, 0,-128, 0, 255);
+    int motorPowerLR = map((rightJoyIn*(-1)), 0,128, 0, 255);
 
     //En 0 los que no funcionan
     ledcWrite(canalM1L, 0);
@@ -100,19 +100,7 @@ void loop() {
   }else if(leftJoyIn<-10 && rightJoyIn<-10){
     //Avanzar + Girar hacia la izquierda (reducir considerablemente la potencia del motor izquierdo)
 
-    int motorPowerDR = map(leftJoyIn, 0, -128, 0, 255);
-
-    //En 0 los que no funcionan
-    ledcWrite(canalM1R, 0);
-    ledcWrite(canalM2R, 0);
-
-    //Estos son los que si funcionan
-    ledcWrite(canalM1L, (motorPowerDR/6));//Se reduce la potencia del motor izquierdo para que gire, pero no se detenga la rueda completamente
-    ledcWrite(canalM2L, motorPowerDR);//Esta continua con la potencia del joystic
-  }else if(leftJoyIn<-10 && rightJoyIn<-10){
-    //Avanzar + Girar hacia la izquierda (reducir considerablemente la potencia del motor izquierdo)
-
-    int motorPowerDR = map(leftJoyIn, 0, -128, 0, 255);
+    int motorPowerDR = map((leftJoyIn*(-1)), 0, 128, 0, 255);
 
     //En 0 los que no funcionan
     ledcWrite(canalM1R, 0);
@@ -123,19 +111,20 @@ void loop() {
     ledcWrite(canalM2L, motorPowerDR);//Esta continua con la potencia del joystic
 
   }else if(leftJoyIn<-10 && rightJoyIn>10){
-    //Avanzar + Girar hacia la izquierda (reducir considerablemente la potencia del motor izquierdo)
+    //Avanzar + Girar hacia la derecha (reducir considerablemente la potencia del motor derecho )
 
-    int motorPowerDR = map(leftJoyIn, 0, -128, 0, 255);
+    int motorPowerDR = map((leftJoyIn*(-1)), 0, 128, 0, 255);
 
     //En 0 los que no funcionan
     ledcWrite(canalM1R, 0);
     ledcWrite(canalM2R, 0);
 
     //Estos son los que si funcionan
-    ledcWrite(canalM1L, motorPowerDR);//Se reduce la potencia del motor izquierdo para que gire, pero no se detenga la rueda completamente
-    ledcWrite(canalM2L, (motorPowerDR/6));//Esta continua con la potencia del joystic
+    ledcWrite(canalM1L, motorPowerDR);//Potencia queda igual
+    ledcWrite(canalM2L, (motorPowerDR/6));//se Reduce la potencia a una sexta parte
+
   }else if(leftJoyIn>10 && rightJoyIn<-10){
-    //Avanzar + Girar hacia la izquierda (reducir considerablemente la potencia del motor izquierdo)
+    //Retroceder + Girar hacia la izquierda (reducir considerablemente la potencia del motor izquierdo)
 
     int motorPowerDR = map(leftJoyIn, 0, 128, 0, 255);
 
@@ -148,7 +137,7 @@ void loop() {
     ledcWrite(canalM2R, motorPowerDR);//Esta continua con la potencia del joystic
 
   }else if(leftJoyIn>10 && rightJoyIn>10){
-    //Avanzar + Girar hacia la izquierda (reducir considerablemente la potencia del motor izquierdo)
+    //retoceder + Girar hacia la derecha (reducir considerablemente la potencia del motor derecho)
 
     int motorPowerDR = map(leftJoyIn, 0, 128, 0, 255);
 
@@ -157,10 +146,8 @@ void loop() {
     ledcWrite(canalM2L, 0);
 
     //Estos son los que si funcionan
-    ledcWrite(canalM1R, motorPowerDR);//Se reduce la potencia del motor izquierdo para que gire, pero no se detenga la rueda completamente
-    ledcWrite(canalM2R, (motorPowerDR/6));//Esta continua con la potencia del joystic
+    ledcWrite(canalM1R, motorPowerDR);//Continua la misma potencia
+    ledcWrite(canalM2R, (motorPowerDR/6));//Se reduce la potencia a /6
   }
 
-
-  
 }
