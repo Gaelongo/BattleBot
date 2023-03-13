@@ -73,11 +73,10 @@ void loop() {
 
   if(leftJoyIn<-10 && rightJoyIn==-1){
 
-    Serial.println("Avanzando");
-    
     //Mover hacia enfrente (ambos motores giran hacia adelante)
 
     int motorPowerDR = map((leftJoyIn*(-1)), 0, 128, 0, 255);
+    Serial.print("Avanzando");
 
     //Todos en 0 excepto los que van a funcionar
     ledcWrite(canalM1R, 0);
@@ -89,11 +88,10 @@ void loop() {
 
   }else if(leftJoyIn>10 && rightJoyIn==-1){
 
-    Serial.println("Retrocediendo");
-    
     //Mover hacia atras (ambos motores giran hacia atras)
 
     int motorPowerDR = map(leftJoyIn, 0, 128, 0, 255);
+    Serial.print("Retrocediendo");
 
     //En 0 los que no van a funcionar
     ledcWrite(canalM1L, 0);
@@ -105,11 +103,11 @@ void loop() {
 
   }else if(leftJoyIn==-1 && rightJoyIn>10){
 
-    Serial.println("Girando a la derecha");
 
     //Girar hacia la derecha(Motor 1 hacia enfrente y motor 2 hacia atras)
 
     int motorPowerLR = map(rightJoyIn, 0, 128, 0, 255);
+    Serial.print("Girando a la derecha");
 
     //En 0 los que no van a funcionar
     ledcWrite(canalM1R, 0);//motor 1 hacia atras apagado
@@ -121,11 +119,11 @@ void loop() {
 
   }else if(leftJoyIn==-1 && rightJoyIn<-10){
 
-    Serial.println("Girando a la izquierda");
     
     //Girar hacia la izquierda (motor 1 hacia atras y motor 2 hacia enfrente)
 
     int motorPowerLR = map((rightJoyIn*(-1)), 0,128, 0, 255);
+    Serial.print("Girando a la izquierda");
 
     //En 0 los que no funcionan
     ledcWrite(canalM1L, 0);
@@ -137,11 +135,11 @@ void loop() {
 
   }else if(leftJoyIn<-10 && rightJoyIn<-10){
 
-    Serial.println("Avanzando y girando hacia la izquierda");
 
     //Avanzar + Girar hacia la izquierda (reducir considerablemente la potencia del motor izquierdo)
 
     int motorPowerDR = map((leftJoyIn*(-1)), 0, 128, 0, 255);
+    Serial.print("Avanzando y girando hacia la izquierda");
 
     //En 0 los que no funcionan
     ledcWrite(canalM1R, 0);
@@ -153,11 +151,11 @@ void loop() {
 
   }else if(leftJoyIn<-10 && rightJoyIn>10){
 
-    Serial.println("Avanzando y girando hacia la derecha");
     
     //Avanzar + Girar hacia la derecha (reducir considerablemente la potencia del motor derecho )
 
     int motorPowerDR = map((leftJoyIn*(-1)), 0, 128, 0, 255);
+    Serial.print("Avanzando y girando hacia la derecha");
 
     //En 0 los que no funcionan
     ledcWrite(canalM1R, 0);
@@ -169,11 +167,11 @@ void loop() {
 
   }else if(leftJoyIn>10 && rightJoyIn<-10){
 
-    Serial.println("Retrocediendo y girando a la izquierda");
 
     //Retroceder + Girar hacia la izquierda (reducir considerablemente la potencia del motor izquierdo)
 
     int motorPowerDR = map(leftJoyIn, 0, 128, 0, 255);
+    Serial.print("Retrocediendo y girando a la izquierda");
 
     //En 0 los que no funcionan
     ledcWrite(canalM1L, 0);
@@ -185,11 +183,11 @@ void loop() {
 
   }else if(leftJoyIn>10 && rightJoyIn>10){
 
-    Serial.println("Retrocediendo y girando a la derecha");
 
     //retoceder + Girar hacia la derecha (reducir considerablemente la potencia del motor derecho)
 
     int motorPowerDR = map(leftJoyIn, 0, 128, 0, 255);
+    Serial.print("Retrocediendo y girando a la derecha");
 
     //En 0 los que no funcionan
     ledcWrite(canalM1L, 0);
